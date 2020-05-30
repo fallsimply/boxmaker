@@ -1,0 +1,55 @@
+body {
+	font-family: sans-serif;
+}
+
+main {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+textarea#boxContent, pre#output, button.makeBox{
+	border: 2px solid #009688;
+	box-shadow: 1px 1px 6px 0 rgba(0, 0, 0,.25) !important;
+	border-radius: 5px;
+}
+
+button.makeBox {
+	background: #009688;
+	color: white;
+	padding: 5px 10px;
+}
+
+textarea#boxContent, pre#output {
+	min-height: 100px;
+	min-width: 250px;
+	display: block;
+	margin: 10px 0;
+	padding: 5px;
+}
+
+.typeSelect {
+	display: grid;
+	grid-template-columns: min-content 1fr;
+	grid-row-gap: 5px;
+}
+
+.typeSelect input[type="radio"], .typeSelect label pre {
+	margin: 0 0.25em;
+}
+
+.typeSelect input[type="radio"] {
+	position: relative;
+	height: 100%;
+}
+
+[resize] {
+	resize: both;
+	overflow: auto;
+}
+.output {
+	padding: 10px;
+	grid-row: span 2;
+}
+section.output #output {
+	height: 75%;
+	box-sizing: border-box;
+}
