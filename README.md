@@ -1,7 +1,7 @@
 # boxmaker
 a simple ascii box generator
 
-example
+examples
 ```
 ┌───────────────────┐
 │    Single Line    │
