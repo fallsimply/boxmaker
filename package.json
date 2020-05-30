@@ -1,0 +1,17 @@
+{
+  "name": "boxmaker",
+  "version": "1.0.0",
+  "description": "a tool to generate anscii boxes",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "postbuild": "terser index.js --mangle-props keep_quoted -c -m -o index.js"
+  },
+  "author": "fall simply <simply@fallproject.org>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "terser": "^4.7.0",
+    "typescript": "^3.9.3"
+  }
+}
