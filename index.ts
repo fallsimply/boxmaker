@@ -21,6 +21,7 @@ const doubleBox = `
 ║    Double Line    ║
 ╚═══════════════════╝
 `.trim()
+
 const boxChars: {single: BoxChars, double: BoxChars} = {
 	single: {
 		topLeft:     "┌",
@@ -39,11 +40,14 @@ const boxChars: {single: BoxChars, double: BoxChars} = {
 		horizontal:  "═",
 	}
 }
+const pad = {
+	left: (str: string, width: number) => str +  " ".repeat(width - str.length)
+}
 
 const $ = (selector: string, elem: Queryable = document): any => elem.querySelector(selector)
 
-var output = $("pre#output")
-var input  = $("textarea#boxContent")
+var output: HTMLElement      = $("pre#output")
+var input:  HTMLInputElement = $("textarea#boxContent")
 
 
 // width of the longest line in a block of text
@@ -62,49 +66,41 @@ function center(str: string, width: number): string {
 	throw new Error("Center is not Implemented");
 }
 
-
-// Creates ASCII BOX
 function box(boxStr: string, type: string): string {
 	let strArr    = []
 	let lineWidth = maxWidth(boxStr)
+	let chars     = boxChars[type]
 	
 	strArr.push(
-		topLine(lineWidth, boxChars[type])
+		topLine(lineWidth, chars)
 	)
-	for (let line of boxStr.split("\n")) {
-		strArr.push(
-			middleLine(lineWidth, boxChars[type], line)
-		)
-	}
+	boxStr.split("\n").forEach(line => strArr.push(
+		middleLine(lineWidth, chars, line)
+	))
 	strArr.push(
-		bottomLine(lineWidth, boxChars[type])
+		bottomLine(lineWidth, chars)
 	)
 	
 	return strArr.join("<br>")
 }
 
-
-// Makes Top Line of Box
-function topLine(width: number, chars: BoxChars): string {
-	return `${chars.topLeft}${chars.horizontal.repeat(width + 2)}${chars.topRight}`
-}
-
-// Makes Middle Line of Box
-function middleLine(width: number, chars: BoxChars, str: string): string {
-	return `${chars.vertical} ${str +  " ".repeat(width - str.length)} ${chars.vertical}`
-}
-
-// Makes Bottom Line of Box
-function bottomLine(width: number, chars: BoxChars): string {
-	return `${chars.bottomLeft}${chars.horizontal.repeat(width + 2)}${chars.bottomRight}`
-}
+const topLine    = (width : number, chars : BoxChars) : string => `${chars.topLeft}${chars.horizontal.repeat(width + 2)}${chars.topRight}`
+const middleLine = (width : number, chars : BoxChars, str : string) : string => `${chars.vertical} ${pad.left(str, width)} ${chars.vertical}`
+const bottomLine = (width : number, chars : BoxChars) : string => `${chars.bottomLeft}${chars.horizontal.repeat(width + 2)}${chars.bottomRight}`
 
 
 $("button.makeBox").addEventListener("click", () => {
+	let radio: HTMLInputElement = $('input[name="boxType"]:checked')
 	output.insertAdjacentHTML(
 		'beforeend', `<pre>${box(
 			input.value, 
-			$('input[name="boxType"]:checked').value
+			radio.value
 		)}</pre>`
 	)
 })
+
+$(`label[for="single"] pre`).innerText = singleBox
+$(`label[for="double"] pre`).innerText = doubleBox
+input.value = `multiline
+sample
+text`
