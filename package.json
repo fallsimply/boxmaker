@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc --project tsconfig.json",
-    "postbuild": "terser index.js --mangle-props keep_quoted -c -m -o index.js"
+    "postbuild": "terser public/index.js --mangle-props keep_quoted -c -m -o public/index.js"
   },
   "author": "fall simply <simply@fallproject.org>",
   "license": "MIT",
