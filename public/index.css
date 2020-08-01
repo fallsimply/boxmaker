@@ -1,20 +1,36 @@
+@import "switch.css";
+
+:root, mk-switch {
+	--primary: hsl(174, 100%, 29%);
+}
+
+mk-switch {
+	--switch-active: var(--primary);
+}
+
 body {
 	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    background: hsla(200, 48%, 24%, 1);
+	color: #fff;
 }
 
 main {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-rows: -webkit-min-content 1fr;
+	grid-template-rows: min-content 1fr;
+	grid-auto-flow: column;
 }
 
-textarea#boxContent, pre#output, button.makeBox{
-	border: 2px solid #009688;
+textarea#boxContent, pre#output, button.makeBox, input[type="number"] {
+	border: 3px solid var(--primary);
+	box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, .25) !important;
 	border-radius: 5px;
-	box-shadow: 1px 1px 6px 0 rgba(0, 0, 0,.25) !important;
+	background: #fff;
+	color: #000;
 }
 
 button.makeBox {
-	background: #009688;
+	background: var(--primary);
 	padding: 5px 10px;
 
 	font-size: 1em;
@@ -24,16 +40,19 @@ button.makeBox {
 }
 
 textarea#boxContent, pre#output {
+	min-height: 100px;
+	min-width: 250px;
+	width: 100%;
 	display: block;
 	margin: 10px 0;
 	padding: 5px;
-
-	min-height: 100px;
-	min-width: 250px;
+	box-sizing: border-box;
+	-webkit-appearance: none;
 }
 
 .typeSelect {
 	display: grid;
+	grid-template-columns: -webkit-min-content 1fr;
 	grid-template-columns: min-content 1fr;
 	grid-row-gap: 5px;
 }
@@ -47,17 +66,38 @@ textarea#boxContent, pre#output {
 	height: 100%;
 }
 
-[resize] {
-	resize: both;
-	overflow: auto;
+[resize="y"] {
+	resize: vertical;
+	overflow-y: auto;
 }
+
 .output {
 	padding: 10px;
 	grid-row: span 2;
 }
+
 section.output #output {
 	height: 75%;
 	box-sizing: border-box;
+}
+
+section.options {
+	display: grid;
+	grid-template-columns: -webkit-min-content 1fr;
+	grid-template-columns: min-content 1fr;
+	grid-gap: 5px;
+}
+
+section.options > label {
+	height: 100%;
+	margin: 3px 0;
+	font-size: 16px;
+	margin: 5px;
+}
+
+mk-switch {
+	display: inline-block;
+	margin: auto 6px;
 }
 
 a.beta {
@@ -69,10 +109,10 @@ a.beta {
 	font-family: inherit;
 	font-size: 1em;
 	font-weight: 600;
-	color: #009688;
+	color: var(--primary);
 	text-decoration: none;
 
-	border: 2px solid #009688;
+	border: 2px solid var(--primary);
 	border-radius: 5px;
 
 	position: absolute;
@@ -80,3 +120,71 @@ a.beta {
     left: 50%;
     transform: translatex(-50%);
 }
+
+
+/* Input Items */
+	input[type="radio"] {
+		all: initial;
+		-webkit-appearance: none;
+		-moz-apperance: none;
+		width: 20px;
+		filter: brightness(1.25) saturate(0.75)
+	}
+
+	input[type="radio"]:after {
+		display: none;
+	}
+
+	input[type="radio"]:checked:after {
+		display: block;
+		width: 9px;
+		height: 9px;
+		background: hsl(174, 100%, 29%);
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		content: "";
+		transform: translate(-50%, -50%);
+		border-radius: 13px;
+	}
+
+	input[type="radio"]::hover:after, input[type="radio"]::hover:before {
+		filter: saturate(50%) brightness(150%);
+	}
+
+	input[type="radio"]:before {
+		display: block;
+		width: 14px;
+		height: 14px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		content: "";
+		transform: translate(-50%, -50%);
+		border-radius: 13px;
+		border: 2px solid hsl(174, 100%, 29%);
+	}
+
+	input[type="number"] {
+		height: 28px;
+		box-sizing: border-box;
+		border-radius: 2px;
+		border: 1.5px #009485 solid;
+		padding: 4px;
+		width: 48px;
+		box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+	}
+
+	input[type="number"]:focus, input[type="number"]:hover, input[type="number"]:active {
+		border: 3px #009485 solid;
+		outline: 0;
+	}
+
+	input[type="number"]:disabled {
+		background: rgba(255, 255, 255, .6);
+		border: 0;
+	}
+
+	input[type="number"]:disabled ~ label[for="colWidth"] {
+		color: rgba(255, 255, 255, .75);
+	}

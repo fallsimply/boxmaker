@@ -12,5 +12,8 @@
 	"devDependencies": {
 		"esbuild": "^0.4.3",
 		"terser": "^4.7.0"
+	},
+	"dependencies": {
+		"lit-element": "^2.3.1"
 	}
 }

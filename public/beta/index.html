@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<link href="index.css" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="preload" href="https://switch.fallproject.org/switch.css" as="style">
+		<link rel="preload" href="https://switch.fallproject.org/switch.lit.js" as="script">
+		<link rel="preload" href="index.js" as="script">
+	</head>
+	<body>
+		<h1>ASCII Box Generator</h1>
+		<main>
+			<section>
+				<h2>Type</h2>
+				<section class="typeSelect">
+					<input type="radio" value="single" name="boxType" checked>
+					<label for="single">
+						<pre>Single Line</pre>
+					</label>
+					<input type="radio" value="double" name="boxType">
+					<label for="double">
+						<pre>Double Line</pre>
+					</label>
+				</section>
+				<h2>Options</h2>
+				<section class="options">
+					<mk-switch name="center" class="center" checked></mk-switch>
+					<label for="center">Center Text</label>
+					<mk-switch name="useColWidth" class="useColWidth"></mk-switch>
+					<label for="useColWidth">Custom Column Width</label>
+					<input name="colWidth" type="number" min="0" disabled>
+					<label for="colWidth">Column Width</label>
+				</section>
+				<h2>Text</h2>
+				<textarea id="boxContent">input</textarea style="-webkit-appearance: none;">
+				<button class="makeBox">Make Box</button>
+			</section>
+			<section class="output">
+				<h2>Output</h2>
+				<pre id="output" resize></pre>
+			</section>
+		</main>
+		<script src="https://switch.fallproject.org/switch.lit.js" type="module"></script>
+		<script src="index.js"></script>
+		<a href="//beta.boxmaker.fallproject.org" class="toggleC">Go To Stable</a>
+	</body>
+</html>

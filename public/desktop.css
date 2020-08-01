@@ -1,0 +1,12 @@
+main {
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 20px;
+}
+.output {
+    grid-column: 2;
+    
+}
+section.output #output {
+    height: 430px;
+}

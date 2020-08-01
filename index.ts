@@ -1,15 +1,4 @@
 // @ts-check
-interface Queryable {
-	querySelector: (selectors: string) => any;
-}
-interface BoxChars {
-	readonly topLeft:     string,
-	readonly bottomLeft:  string,
-	readonly topRight:    string,
-	readonly bottomRight: string,
-	readonly vertical:    string,
-	readonly horizontal:  string,
-}
 
 const singleBox = `
 ┌───────────────────┐
@@ -22,7 +11,7 @@ const doubleBox = `
 ╚═══════════════════╝
 `.trim()
 
-const boxChars: {single: BoxChars, double: BoxChars} = {
+const boxChars: BoxCharsObj = {
 	single: {
 		topLeft:     "┌",
 		bottomLeft:  "└",
@@ -66,10 +55,12 @@ function center(str: string, width: number): string {
 	throw new Error("Center is not Implemented");
 }
 
-function box(boxStr: string, type: string): string {
+function box({boxStr, type, center = false, lineWidth = -1}: boxOptions): string {
 	let strArr    = []
-	let lineWidth = maxWidth(boxStr)
-	let chars     = boxChars[type]
+	if (lineWidth <= 0) {
+		lineWidth = maxWidth(boxStr)
+	}
+	let chars = boxChars[type]
 	
 	strArr.push(
 		topLine(lineWidth, chars)
@@ -92,10 +83,12 @@ const bottomLine = (width : number, chars : BoxChars) : string => `${chars.botto
 $("button.makeBox").addEventListener("click", () => {
 	let radio: HTMLInputElement = $('input[name="boxType"]:checked')
 	output.insertAdjacentHTML(
-		'beforeend', `<pre>${box(
-			input.value, 
-			radio.value
-		)}</pre>`
+		'beforeend', `<pre>${box({
+			boxStr: input.value, 
+			type: radio.value,
+			lineWidth: 0,
+			center: true,
+		})}</pre>`
 	)
 })
 

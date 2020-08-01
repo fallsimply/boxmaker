@@ -3,10 +3,11 @@ const { readFileSync ,writeFileSync} = require('fs')
 const { minify } = require('terser')
 
 build({
-    entryPoints: ['./index.ts'],
-    outfile: './public/index.js',
+    entryPoints: ['./index.ts', "switch.lit.js"],
+    outdir: './public',
     stdio: 'inherit',
-    minify: true
+    minify: true,
+    bundle: true,
 })
 .catch(() => process.exit(1))
 .then(() => {
